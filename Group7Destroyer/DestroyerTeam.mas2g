@@ -1,0 +1,22 @@
+use "StarCraft connector.jar" as environment with
+	map="(2)Destination.scx",
+	own_race="Protoss",
+	starcraft_location="C:\\Starcraft",
+	debug="true",
+	auto_menu="Single_Player",
+	enemy_race="terran".
+
+define bot1 as agent{
+	use Bot1.Bot1 as main module.
+	use Bot1.Bot1Init as init module.
+	use Bot1.Bot1Event as event module.
+}
+
+define manager as agent {
+	use Manager.Manager as main module.
+} 
+
+launchpolicy{
+	when type = manager launch manager.
+	when type = bot1 launch bot1.
+}
