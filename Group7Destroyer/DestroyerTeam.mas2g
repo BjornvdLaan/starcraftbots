@@ -6,10 +6,10 @@ use "StarCraft connector.jar" as environment with
 	auto_menu="Single_Player",
 	enemy_race="terran".
 
-define bot1 as agent{
-	use Bot1.Bot1 as main module.
-	use Bot1.Bot1Init as init module.
-	use Bot1.Bot1Event as event module.
+define NexusBot as agent{
+	use NexusBot.NexusBot as main module.
+	use NexusBot.NexusBotInit as init module.
+	use NexusBot.NexusBotEvent as event module.
 }
 
 define manager as agent {
@@ -18,5 +18,5 @@ define manager as agent {
 
 launchpolicy{
 	when type = manager launch manager.
-	when type = bot1 launch bot1.
+	when type = protossNexus launch NexusBot.
 }
