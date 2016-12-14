@@ -1,0 +1,47 @@
+use ProbeBot as knowledge.
+use "../GenericMods/GenericPredicates" as knowledge.
+use "../GenericMods/GenericPercepts" as module.
+
+module ProbeBotEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% get GenericPercepts
+	if true then GenericPercepts.
+	
+	% Current state of the probe
+	if percept(status(_,_,_,NewCond,_,_)), bel(state(OldCond), NewCond \= OldCond) then delete(state(OldCond)) + insert(state(NewCond)).
+	
+	% Locations of Mineral fields
+	forall percept(mineralField(Id,Amount,_,X,Y)), not(bel(mineralLoc(Id,Amount,X,Y))) do insert(mineralLoc(Id,Amount,X,Y)).
+	forall bel(mineralLoc(Id,Amount,X,Y)), not(percept(mineralField(Id,Amount,_,X,Y))) do delete(mineralLoc(Id,Amount,X,Y)).
+	
+	% Location of Vespene Geyser
+	forall percept(vespeneGeyser(Id,R,Rg,Xv,Yv)), not(bel(vespeneLoc(Id,R,Rg,Xv,Yv))) do insert(vespeneLoc(Id,R,Rg,Xv,Yv)).
+	forall bel(vespeneLoc(Id,R,Rg,Xv,Yv)),not(percept(vespeneGeyser(Id,R,Rg,Xv,Yv))) do delete(vespeneLoc(Id,R,Rg,Xv,Yv)).
+	
+	% Location of Construction Sites
+	forall percept(constructionSite(X,Y,B)), not(bel(constructLoc(X,Y,B))) do insert(constructLoc(X,Y,B)).
+	forall bel(constructLoc(X,Y,B)),not(percept(constructionSite(X,Y,B))) do delete(constructLoc(X,Y,B)).
+	
+	% The handling of the capacity percept
+	if percept(resources(_, _, C, T)), bel(capacity(OldC, OldT), (not(OldC == C) ; not(OldT == T))) then delete(capacity(OldC, OldT)) + insert(capacity(C, T)).
+	
+	% The handling of the workerActivity
+	forall percept(workerActivity(ID,ACT)), bel(not(workerActivity(ID,ACT))) do insert(workerActivity(ID,ACT)).
+	forall bel(workerActivity(ID,ACT)),not(percept(workerActivity(ID,ACT))) do delete(workerActivity(ID,ACT)).
+	
+	
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If there is no Pylon yet and 8 probes already, create one
+	if bel( not(unitAmount("Protoss Pylon", PylAmount)), PylAmount = 1) then adopt(unitAmount("Protoss Pylon", 1)).
+	%if true then adopt(unitAmount("Protoss Pylon", 1)).
+	
+	% build two gateways
+	if bel( not(unitAmount("Protoss Gateway", GateAmount)), GateAmount = 2) then adopt(unitAmount("Protoss Gateway", 2)).
+	
+	% If the worker is not busy, start gathering minerals
+	%if bel(workerActivity(Id,_), unitAmount("Protoss Pylon", PylAmount), PylAmount >= 1) then adopt(workerActivity(Id, gatheringMinerals)).
+	if bel(self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
+}
+

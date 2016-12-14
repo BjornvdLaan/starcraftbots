@@ -1,0 +1,13 @@
+use ProbeBot as knowledge.
+use ProbeBot as actionspec.
+
+module ProbeBot {
+	
+	if a-goal(unitAmount("Protoss Pylon", 1)), bel(constructLoc(X,Y,_), minerals(M), M>100) then build("Protoss Pylon", X, Y).
+	
+	%if a-goal(workerActivity(Id, gatheringMinerals)), bel(unitAmount("Protoss Pylon", PylAmount), PylAmount >= 1) then gather(minerals).
+	if a-goal(workerActivity(Id, gatheringMinerals)), bel(mineralLoc(MinId,_,_,_)) then gather(MinId).
+	
+	if a-goal(unitAmount("Protoss Gateway", 2)), bel(constructLoc(X,Y,true), minerals(M), M > 150) then build("Protoss Gateway", X, Y).
+	
+}
