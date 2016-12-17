@@ -33,6 +33,10 @@ module ProbeBotEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
+	% If there are Mineral patches, count the number
+	%if bel( mineralLoc(Id,_,_,_)), percept(mineralField(Id,_,_,_,_)) then insert(mineralCount(X+1)).
+	%mineralCount :- aggregate_all(count, mineralLoc(Id), Count), count > 0.
+	
 	% If there is no Pylon yet and 8 probes already, create one
 	if bel( not(unitAmount("Protoss Pylon", PylAmount)), PylAmount = 1) then adopt(unitAmount("Protoss Pylon", 1)).
 	%if true then adopt(unitAmount("Protoss Pylon", 1)).
