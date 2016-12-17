@@ -6,6 +6,7 @@ constructLoc/3,
 capacity/2,
 workerActivity/2,
 minerals/1,
+mineralF/1,
 gas/1,
 unitAmount/2,
 self/2.
