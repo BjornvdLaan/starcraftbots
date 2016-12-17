@@ -15,6 +15,11 @@ module ProbeBotEvent {
 	forall percept(mineralField(Id,Amount,_,X,Y)), not(bel(mineralLoc(Id,Amount,X,Y))) do insert(mineralLoc(Id,Amount,X,Y)).
 	forall bel(mineralLoc(Id,Amount,X,Y)), not(percept(mineralField(Id,Amount,_,X,Y))) do delete(mineralLoc(Id,Amount,X,Y)).
 	
+	% If there are Mineral patches, count the number with mineralCount (17-12)
+	forall percept(mineralField(Id,_,_,_,_)), not(bel(mineralLoc(Id,_,_,_))), bel(mineralCount(X)) do delete(mineralCount(X)) + insert(mineralCount(X+1)).
+	forall bel(mineralLoc(Id,_,_,_), mineralCount(X)), not(percept(mineralField(Id,_,_,_,_))) do delete(mineralCount(X)) + insert(mineralCount(X-1)).
+	
+			
 	% Location of Vespene Geyser
 	forall percept(vespeneGeyser(Id,R,Rg,Xv,Yv)), not(bel(vespeneLoc(Id,R,Rg,Xv,Yv))) do insert(vespeneLoc(Id,R,Rg,Xv,Yv)).
 	forall bel(vespeneLoc(Id,R,Rg,Xv,Yv)),not(percept(vespeneGeyser(Id,R,Rg,Xv,Yv))) do delete(vespeneLoc(Id,R,Rg,Xv,Yv)).
@@ -33,10 +38,6 @@ module ProbeBotEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
-	% If there are Mineral patches, count the number
-	%if bel( mineralLoc(Id,_,_,_)), percept(mineralField(Id,_,_,_,_)) then insert(mineralCount(X+1)).
-	%mineralCount :- aggregate_all(count, mineralLoc(Id), Count), count > 0.
-	
 	% If there is no Pylon yet and 8 probes already, create one
 	if bel( not(unitAmount("Protoss Pylon", PylAmount)), PylAmount = 1) then adopt(unitAmount("Protoss Pylon", 1)).
 	%if true then adopt(unitAmount("Protoss Pylon", 1)).
@@ -45,7 +46,10 @@ module ProbeBotEvent {
 	if bel( not(unitAmount("Protoss Gateway", GateAmount)), GateAmount = 2) then adopt(unitAmount("Protoss Gateway", 2)).
 	
 	% If the worker is not busy, start gathering minerals
-	%if bel(workerActivity(Id,_), unitAmount("Protoss Pylon", PylAmount), PylAmount >= 1) then adopt(workerActivity(Id, gatheringMinerals)).
+	if bel(workerActivity(Id,_), unitAmount("Protoss Pylon", PylAmount), PylAmount >= 1) then adopt(workerActivity(Id, gatheringMinerals)).
 	if bel(self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
+	
+	% message send to NexusBot to show amount of minerals
+	if bel(mineralCount(X), X>0) then (nexusBot).send!(mineralCount(X)).
 }
 

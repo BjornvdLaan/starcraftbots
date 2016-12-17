@@ -12,9 +12,14 @@ define probeBot as agent{
 	use ProbeBot.ProbeBotEvent as event module.
 }
 
-
+define NexusBot as agent{
+	use NexusBot.NexusBot as main module.
+	use NexusBot.NexusBotInit as init module.
+	use NexusBot.NexusBotEvent as event module.
+}
 
 launchpolicy{
 	
 	when type = protossProbe launch probeBot.
+	when type = protossNexus launch NexusBot.
 }

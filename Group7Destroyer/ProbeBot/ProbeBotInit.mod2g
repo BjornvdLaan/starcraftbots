@@ -15,4 +15,7 @@ module ProbeBotInit {
 	
 	% Init conditions
 	if percept(status(_, _, _, Cond, _, _)) then insert(state(Cond)).
+	
+	if true then insert(mineralCount(0)).
+	
 }

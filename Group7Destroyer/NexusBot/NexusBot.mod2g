@@ -1,0 +1,13 @@
+use NexusBot as knowledge.
+use NexusBot as actionspec.
+
+module NexusBot {
+	
+	% If there is no probe in queue and have sufficient minerals
+	if bel(minerals(X), X>=50, queueSize(N), N < 2) then {
+		
+		% Build intitial probes according to amount of resources
+		if a-goal(unitAmount("Protoss Probe", X)), bel(unitAmount("Protoss Probe", M), M < 8) then train("Protoss Probe"). 
+	} 
+	
+}
