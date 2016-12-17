@@ -35,7 +35,7 @@ module ProbeBotEvent {
 	
 	% If there are Mineral patches, count the number
 	%if bel( mineralLoc(Id,_,_,_)), percept(mineralField(Id,_,_,_,_)) then insert(mineralCount(X+1)).
-	%mineralCount :- aggregate_all(count, mineralLoc(Id), Count), count > 0.
+	%if bel(mineralCount(OldCount)), aggregate_all(count, mineralLoc(Id), Count) then delete(mineralCount(OldCount)) + insert(mineralCount(Count)).
 	
 	% If there is no Pylon yet and 8 probes already, create one
 	if bel( not(unitAmount("Protoss Pylon", PylAmount)), PylAmount = 1) then adopt(unitAmount("Protoss Pylon", 1)).
@@ -47,5 +47,10 @@ module ProbeBotEvent {
 	% If the worker is not busy, start gathering minerals
 	%if bel(workerActivity(Id,_), unitAmount("Protoss Pylon", PylAmount), PylAmount >= 1) then adopt(workerActivity(Id, gatheringMinerals)).
 	if bel(self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	forall bel(mineralLoc(MinId), friendly("Protoss Nexus", NexusId, _, _)) do (NexusId).send(mineralLoc(MinId)).
+	
+	
 }
 

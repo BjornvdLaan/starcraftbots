@@ -8,7 +8,6 @@ workerActivity/2,
 minerals/1,
 gas/1,
 unitAmount/2,
-mineralCount/1,
 self/2.
 
 % The cost of declared buildings (for every new building add the cost here)
@@ -18,3 +17,4 @@ self/2.
 	% ADDED
         cost("Protoss Assimilator", 100, 0).
         cost("Protoss Cybernetics Core", 200, 0).
+        
