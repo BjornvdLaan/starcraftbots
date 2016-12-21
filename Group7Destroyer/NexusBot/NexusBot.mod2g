@@ -5,9 +5,9 @@ module NexusBot {
 	
 	% If there is no probe in queue and have sufficient minerals
 	if bel(minerals(X), X>=50, queueSize(T), T < 2) then {
+		if a-goal(unitAmount("Protoss Probe", N)), bel(unitAmount("Protoss Probe", M), M < N) then train("Protoss Probe").
 		
-		% If less then 8 workers exist, build a probe
-		if a-goal(unitAmount("Protoss Probe", N)), bel(unitAmount("Protoss Probe", M), M < N) then train("Protoss Probe"). 
+		%if a-goal(unitAmount("Protoss Probe", N * 1.5 + 3)), bel(unitAmount("Protoss Probe", M), M < N) then train("Protoss Probe"). 
 	} 
 	
 }

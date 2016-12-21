@@ -1,4 +1,5 @@
 use ProbeBot as knowledge.
+use "../GenericMods/GenericPredicates" as knowledge.
 use ProbeBot as actionspec.
 
 module ProbeBot {
@@ -15,7 +16,7 @@ module ProbeBot {
 	
 	if a-goal(unitAmount("Protoss Assimilator", 1)), bel(vespeneLoc(Id,R,Rg,Xv,Yv), minerals(M), M >= 100, unitAmount("Protoss Gateway", GateAmount), GateAmount > 1) then build("Protoss Assimilator", Xv, Yv).
 	
-	if a-goal(workerActivity(Id, gatheringGas)), bel(vespeneLoc(VesId,_,_,_,_)) then gather(VesId).
+	if a-goal(workerActivity(Id, gatheringGas)), bel(friendly("Protoss Assimilator", AssiId, _, _)) then gather(AssiId).
 	
 	if a-goal(workerActivity(Id, gatheringMinerals)), bel(mineralLoc(MinId,_,_,_)) then gather(MinId).
 	
