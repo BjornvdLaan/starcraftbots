@@ -18,7 +18,14 @@ define nexusBot as agent{
 	use NexusBot.NexusBotEvent as event module.
 }
 
+define gatewayBot as agent{
+	use GatewayBot.GatewayBot as main module.
+	use GatewayBot.GatewayBotInit as init module.
+	use GatewayBot.GatewayBotEvent as event module.
+}
+
 launchpolicy{
 	when type = protossProbe launch probeBot.
 	when type = protossNexus launch nexusBot.
+	when type = protossGateway launch gatewayBot.
 }
