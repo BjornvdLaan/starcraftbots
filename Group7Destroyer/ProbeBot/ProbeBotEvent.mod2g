@@ -40,19 +40,23 @@ module ProbeBotEvent {
 	% If there is no Pylon yet, create one
 	if bel(builder, not(unitAmount("Protoss Pylon", PylAmount)), PylAmount = 1) then adopt(unitAmount("Protoss Pylon", 1)).
 	
-	% build two gateways
-	if bel(builder, not(unitAmount("Protoss Gateway", GateAmount)), GateAmount = 2, unitAmount("Protoss Pylon",_)) then adopt(unitAmount("Protoss Gateway", 2)).
+	% build one gateway
+	if bel(builder, not(unitAmount("Protoss Gateway", _)), unitAmount("Protoss Pylon",_)) then adopt(unitAmount("Protoss Gateway", 1)).
+	% build second gateway
+	if bel(builder, unitAmount("Protoss Gateway", 1), unitAmount("Protoss Pylon",_)) then adopt(unitAmount("Protoss Gateway", 2)).
+	%if bel(builder, not(unitAmount("Protoss Gateway", GateAmount)), unitAmount("Protoss Pylon", _)) then adopt(unitAmount("Protoss Gateway", 2)).
 	
 	% If there is not enough capacity, build more pylons
-	if bel(builder, unitAmount("Protoss Pylon", PylAmount), PylAmount_Des is PylAmount+1, capacity(CS, TS), TS - CS < 8) then adopt(unitAmount("Protoss Pylon", PylAmount_Des)).
+	if bel(builder, unitAmount("Protoss Pylon", PylAmount), PylAmount_Des is PylAmount+1, capacity(CS, TS), TS - CS < 8, unitAmount("Protoss Gateway", GateAmount), GateAmount > 1) then adopt(unitAmount("Protoss Pylon", PylAmount_Des)).
 	
 	% build cybernetics institute
-	if bel(builder, not(unitAmount("Protos Cybernetics Core",_)), unitAmount("Protoss Pylon",_), unitAmount("Protoss Gateway", 1)) then adopt(unitAmount("Protoss Cybernetics Core", 1)).
+	if bel(builder, not(unitAmount("Protos Cybernetics Core",1)), unitAmount("Protoss Pylon",_), unitAmount("Protoss Gateway", 1)) then adopt(unitAmount("Protoss Cybernetics Core", 1)).
 	
 	% build assimilator
 	if bel(builder, not(unitAmount("Protoss Assimilator", _))) then adopt(unitAmount("Protoss Assimilator", 1)).
 	
-	if bel(vespene, self(Id, _)) then adopt(workerActivity(Id, gatheringGas)).
+	% if role is vespene, collect vespene
+	if bel(vespene, unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0, self(Id, _)) then adopt(workerActivity(Id, gatheringGas)).
 	
 	% If the worker is not busy, start gathering minerals
 	if bel(self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
