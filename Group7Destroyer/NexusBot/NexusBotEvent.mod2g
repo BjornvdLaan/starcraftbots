@@ -25,11 +25,20 @@ module NexusBotEvent {
 	% If no goal to make an amount of units, and have less then 7 probes, adopt a goal to make 8 probes
 	% if not(goal(unitAmount(_,_))), bel(unitAmount("Protoss Probe", X), X < 7) then adopt(unitAmount("Protoss Probe", 8)).
 	
-	
 	% 14-12 if we do not have a goal to make an amount of units and we believe that there are less probes than 1.5 times the amount of mineral fields, then we adopt the goal of building so many probes. 
-	if not(goal(unitAmount(_,_))), bel(nrMineralFields(N), unitAmount("Protoss Probe",Y), (Y < (1.5 * N))) then adopt(unitAmount("Protoss Probe", N * 1.5)).
+	if not(goal(unitAmount(_,_))), bel(unitAmount("Protoss Assimilator", AssiAmount), AssiAmount < 1, nrMineralFields(N), unitAmount("Protoss Probe",Y), (Y < (1.5 * N))) then adopt(unitAmount("Protoss Probe", N * 1.5)).
+	
+	if not(goal(unitAmount(_,_))), bel(unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0, nrMineralFields(N), unitAmount("Protoss Probe",Y), (Y < (1.5 * N + 3))) then adopt(unitAmount("Protoss Probe", N * 1.5 + 3)).
 
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	if (_).sent(mineralF(Id)), not(bel(mineralF(Id))) then insert(mineralF(Id)).
+	
+	forall (Name).sent(probe(Id)) do insert(probe(Name, Id)).
+	
+	if bel(not(probeHasRole(Name, Id, _)), probe(Name, Id)) then {
+		if bel(not(probeHasRole(_,_,"builder"))) then insert(probeHasRole(Name, Id, "builder")) + (Name).send(builder).
+		if bel(unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0, not(probeHasRole(_,_,"vespene")), probeHasRole(_,_,"builder")) then insert(probeHasRole(Name, Id, "vespene")) + (Name).send(vespene).
+	}
+	
 }
 

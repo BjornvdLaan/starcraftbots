@@ -1,8 +1,8 @@
 use ProbeBot as knowledge.
 
 module ProbeBotInit {
-	% zelfkennis
-	if percept(self(Id, Type, MaxHealth, MaxShield, MaxEnergy)) then insert(self(Id, Type)).
+	% zelfkennis en nexus laten weten dat hij bestaat
+	if percept(self(Id, Type, MaxHealth, MaxShield, MaxEnergy)) then insert(self(Id, Type)) + (nexusBot).send(probe(Id)).
 	
 	% Init resource percepts
 	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), capacity(CS, TS)).
@@ -12,6 +12,10 @@ module ProbeBotInit {
 		
 	% Init ConstructionSites
 	forall percept(constructionSite(X,Y,B)) do insert(constructLoc(X,Y,B)).
+	
+	%Init Vespene Gas location
+	forall percept(vespeneGeyser(Id,R,Rg,Xv,Yv)) do insert(vespeneLoc(Id,R,Rg,Xv,Yv)).
+		
 	
 	% Init conditions
 	if percept(status(_, _, _, Cond, _, _)) then insert(state(Cond)).
