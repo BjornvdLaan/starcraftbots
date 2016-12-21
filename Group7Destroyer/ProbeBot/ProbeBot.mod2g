@@ -5,7 +5,9 @@ module ProbeBot {
 	
 	if a-goal(unitAmount("Protoss Pylon", 1)), bel(constructLoc(X,Y,_), minerals(M), M>100) then build("Protoss Pylon", X, Y).
 		
-	if a-goal(unitAmount("Protoss Cybernetics Core", 1)), bel(constructLoc(X,Y,true), minerals(M), M>200) then build("Protoss Cybernetics Core", X, Y).
+	if a-goal(unitAmount("Protoss Cybernetics Core", 1)), bel(unitAmount("Protoss Gateway", GateAmount), GateAmount = 2, constructLoc(X,Y,true), minerals(M), M>200) then build("Protoss Cybernetics Core", X, Y).
+	
+	if a-goal(unitAmount("Protoss Gateway", 1)), bel(constructLoc(X,Y,true), minerals(M), M > 150) then build("Protoss Gateway", X, Y).
 	
 	if a-goal(unitAmount("Protoss Gateway", 2)), bel(constructLoc(X,Y,true), minerals(M), M > 150) then build("Protoss Gateway", X, Y).
 	

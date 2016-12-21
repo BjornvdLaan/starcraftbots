@@ -42,15 +42,15 @@ module ProbeBotEvent {
 	
 	% build one gateway
 	if bel(builder, not(unitAmount("Protoss Gateway", _)), unitAmount("Protoss Pylon",_)) then adopt(unitAmount("Protoss Gateway", 1)).
-	
 	% build second gateway
 	if bel(builder, unitAmount("Protoss Gateway", 1), unitAmount("Protoss Pylon",_)) then adopt(unitAmount("Protoss Gateway", 2)).
+	%if bel(builder, not(unitAmount("Protoss Gateway", GateAmount)), unitAmount("Protoss Pylon", _)) then adopt(unitAmount("Protoss Gateway", 2)).
 	
 	% If there is not enough capacity, build more pylons
 	if bel(builder, unitAmount("Protoss Pylon", PylAmount), PylAmount_Des is PylAmount+1, capacity(CS, TS), TS - CS < 8) then adopt(unitAmount("Protoss Pylon", PylAmount_Des)).
 	
 	% build cybernetics institute
-	if bel(builder, not(unitAmount("Protos Cybernetics Core",_)), unitAmount("Protoss Pylon",_), unitAmount("Protoss Gateway", 1)) then adopt(unitAmount("Protoss Cybernetics Core", 1)).
+	if bel(builder, not(unitAmount("Protos Cybernetics Core",1)), unitAmount("Protoss Pylon",_), unitAmount("Protoss Gateway", 1)) then adopt(unitAmount("Protoss Cybernetics Core", 1)).
 	
 	% build assimilator
 	if bel(builder, not(unitAmount("Protoss Assimilator", _))) then adopt(unitAmount("Protoss Assimilator", 1)).
