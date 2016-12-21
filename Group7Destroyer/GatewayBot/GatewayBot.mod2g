@@ -1,7 +1,7 @@
 use GatewayBot as knowledge.
 use GatewayBot as actionspec.
 
-module ProtossGateway {
+module GatewayBot {
 	
 	% Keep making zealots if there are sufficient supplies
 	if a-goal(unitAmount("Protoss Zealot", _)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 100) 

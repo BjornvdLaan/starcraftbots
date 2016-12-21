@@ -1,7 +1,7 @@
 use GatewayBot as knowledge.
 use "../GenericMods/GenericPercepts" as module.
 
-module ProtossGatewayEvent {
+module GatewayBotEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
 	% The generic percepts most units use
