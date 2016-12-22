@@ -1,4 +1,4 @@
-use ProtossGateway as knowledge.
+use GatewayBot as knowledge.
 
 module ProtossGatewayInit {
 	% Init queueSize percept

@@ -7,7 +7,7 @@ module ProtossGateway {
 	if a-goal(unitAmount("Protoss Zealot", _)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 100) 
 	then train("Protoss Zealot").
 	
-	if a-goal(unitAmount("Protoss Dragoon", 10)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 125) 
+	if a-goal(unitAmount("Protoss Dragoon", _)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 125) 
 	then train("Protoss Dragoon").
 	
 }
