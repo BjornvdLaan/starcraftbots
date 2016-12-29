@@ -33,10 +33,6 @@ module ProbeBotEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
-	% If there are Mineral patches, count the number
-	%if bel( mineralLoc(Id,_,_,_)), percept(mineralField(Id,_,_,_,_)) then insert(mineralCount(X+1)).
-	%if bel(mineralCount(OldCount)), aggregate_all(count, mineralLoc(Id), Count) then delete(mineralCount(OldCount)) + insert(mineralCount(Count)).
-	
 	% If there is no Pylon yet, create one
 	if bel(builder, not(unitAmount("Protoss Pylon", PylAmount)), PylAmount = 1) then adopt(unitAmount("Protoss Pylon", 1)).
 	
@@ -59,10 +55,8 @@ module ProbeBotEvent {
 	if bel(vespene, unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0, self(Id, _)) then adopt(workerActivity(Id, gatheringGas)).
 	
 	% If the worker is not busy, start gathering minerals
-	if bel(self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
-	
-	%if bel(workerActivity(Id,_), unitAmount("Protoss Pylon", PylAmount), PylAmount >= 1) then adopt(workerActivity(Id, gatheringMinerals)).
-	
+	if not(bel(vespene)), bel(self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
+		
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	forall bel(mineralLoc(MinId,_,_,_)) do (nexusBot).send(mineralF(MinId)).
 	
