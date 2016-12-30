@@ -7,11 +7,11 @@ module NexusBot {
 	
 	if not(bel(probeHasRole(_,_,"builder"), probeHasRole(Name, Id, _))), bel(probe(Name, Id)) then insert(probeHasRole(Name, Id, "builder")) + (Name).send(builder).
 	
-	%if bel(unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0) then {
-	if not(bel(probeHasRole(_,_,"vespene1"), probeHasRole(Name, Id, _))), bel(probe(Name, Id)) then insert(probeHasRole(Name, Id, "vespene1")) + (Name).send(vespene).
-	if not(bel(probeHasRole(_,_,"vespene2"), probeHasRole(Name, Id, _))), bel(probe(Name, Id), probeHasRole(VName,VId,"vespene1"), (Id \= VId)) then insert(probeHasRole(Name, Id, "vespene2")) + (Name).send(vespene).
-	if not(bel(probeHasRole(_,_,"vespene3"), probeHasRole(Name, Id, _))), bel(probe(Name, Id), probeHasRole(VName,VId,"vespene1"), (Id \= VId), probeHasRole(WName,WId,"vespene2"), (Id \= WId)) then insert(probeHasRole(Name, Id, "vespene3")) + (Name).send(vespene).
-	%}
+	if bel(unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0) then {
+		if not(bel(probeHasRole(_,_,"vespene1"), probeHasRole(Name, Id, _))), bel(probe(Name, Id)) then insert(probeHasRole(Name, Id, "vespene1")) + (Name).send(vespene).
+		if not(bel(probeHasRole(_,_,"vespene2"), probeHasRole(Name, Id, _))), bel(probe(Name, Id), probeHasRole(VName,VId,"vespene1"), (Id \= VId)) then insert(probeHasRole(Name, Id, "vespene2")) + (Name).send(vespene).
+		if not(bel(probeHasRole(_,_,"vespene3"), probeHasRole(Name, Id, _))), bel(probe(Name, Id), probeHasRole(VName,VId,"vespene1"), (Id \= VId), probeHasRole(WName,WId,"vespene2"), (Id \= WId)) then insert(probeHasRole(Name, Id, "vespene3")) + (Name).send(vespene).
+	}
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Probe building --------------------------------------- %%%%%%%%%%%%%%%
 	
