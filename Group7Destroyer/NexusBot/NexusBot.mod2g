@@ -3,10 +3,17 @@ use NexusBot as actionspec.
 
 module NexusBot {
 	
-	% Gives roles to probes
-	if not(bel(probeHasRole(_,_,"vespene"), probeHasRole(Name, Id, _))), bel(probe(Name, Id)) then insert(probeHasRole(Name, Id, "vespene")) + (Name).send(vespene).
+	%%%%%%%%%%%%%%% --------------------------------------- Probe Roles --------------------------------------- %%%%%%%%%%%%%%%
 	
-	if not(bel(probeHasRole(_,_,"builder"), probeHasRole(Name, Id, _))), bel(probe(Name, Id), probeHasRole(VName,VId,"vespene"), (Id \= VId)) then insert(probeHasRole(Name, Id, "builder")) + (Name).send(builder).
+	if not(bel(probeHasRole(_,_,"builder"), probeHasRole(Name, Id, _))), bel(probe(Name, Id)) then insert(probeHasRole(Name, Id, "builder")) + (Name).send(builder).
+	
+	%if bel(unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0) then {
+	if not(bel(probeHasRole(_,_,"vespene1"), probeHasRole(Name, Id, _))), bel(probe(Name, Id)) then insert(probeHasRole(Name, Id, "vespene1")) + (Name).send(vespene).
+	if not(bel(probeHasRole(_,_,"vespene2"), probeHasRole(Name, Id, _))), bel(probe(Name, Id), probeHasRole(VName,VId,"vespene1"), (Id \= VId)) then insert(probeHasRole(Name, Id, "vespene2")) + (Name).send(vespene).
+	if not(bel(probeHasRole(_,_,"vespene3"), probeHasRole(Name, Id, _))), bel(probe(Name, Id), probeHasRole(VName,VId,"vespene1"), (Id \= VId), probeHasRole(WName,WId,"vespene2"), (Id \= WId)) then insert(probeHasRole(Name, Id, "vespene3")) + (Name).send(vespene).
+	%}
+	
+	%%%%%%%%%%%%%%% --------------------------------------- Probe building --------------------------------------- %%%%%%%%%%%%%%%
 	
 	% If there is no probe in queue and have sufficient minerals
 	if bel(minerals(X), X>=50, queueSize(T), T < 2) then {

@@ -13,11 +13,11 @@ gas/1,
 unitAmount/2,
 self/2.
 
+hasRole :- vespene ; builder.
+
 % The cost of declared buildings (for every new building add the cost here)
-	cost("Protoss Pylon", 100, 0).
-	cost("Protoss Nexus", 400, 0).
-	cost("Protoss Gateway", 150, 0).
-	% ADDED
-        cost("Protoss Assimilator", 100, 0).
-        cost("Protoss Cybernetics Core", 200, 0).
-        
+cost("Protoss Pylon", 100, 0).
+cost("Protoss Nexus", 400, 0).
+cost("Protoss Gateway", 150, 0).
+cost("Protoss Assimilator", 100, 0).
+cost("Protoss Cybernetics Core", 200, 0).

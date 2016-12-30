@@ -61,9 +61,7 @@ module ProbeBotEvent {
 	forall bel(mineralLoc(MinId,_,_,_)) do (nexusBot).send(mineralF(MinId)).
 	
 	if (_).sent(builder) then insert(builder).
-	
-	if (_).sent(vespene) then insert(vespene).
-	
+	if (_).sent(vespene) then insert(vespene).	
 	
 }
 
