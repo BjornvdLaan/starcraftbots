@@ -4,7 +4,7 @@ use GatewayBot as actionspec.
 module GatewayBot {
 	
 	% Keep making zealots if there are sufficient supplies
-	if a-goal(unitAmount("Protoss Zealot", _)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 100) 
+	if a-goal(unitAmount("Protoss Zealot", 12)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 100) 
 	then train("Protoss Zealot").
 	
 	if a-goal(unitAmount("Protoss Dragoon", 10)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 125, gas(G), G >=50) 

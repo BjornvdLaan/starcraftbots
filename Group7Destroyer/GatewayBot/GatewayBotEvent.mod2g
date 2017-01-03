@@ -15,11 +15,14 @@ module GatewayBotEvent {
 	
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
-	% If there is no goal yet to make zealots and, start making them untill you have 50
+	% If there is no goal yet to make zealots and, start making them untill you have 12
 	if not(goal(unitAmount("Protoss Zealot", 12))), bel((unitAmount("Protoss Zealot", X), X < 12);
 	not(unitAmount("Protoss Zealot", _))) then adopt(unitAmount("Protoss Zealot", 12)).
 	
-	% start making dragoons after you have made Zealots
-	if not(goal(unitAmount("Protoss Dragoon", 10))), bel(unitAmount("Protoss Dragoon", X), X < 10), bel(unitAmount("Protoss Zealot", X), X = 12) then adopt(unitAmount("Protoss Dragoon", 10)).
+	% start making zealots
+	%if bel(unitAmount("Protoss Zeolot", ZelAmount), ZelAmount < 12) then adopt(unitAmount("Protoss Zeolot", 12)).
+	
+	% start making dragoons after you have made Zealots and if there is a cybernetics core
+	if not(goal(unitAmount("Protoss Dragoon", 10))), bel(unitAmount("Protoss Dragoon", X), X < 10), bel(unitAmount("Protoss Zealot", X), X >= 12, unitAmount("Protoss Cybernetics Core", CybAmount), CybAmount = 1) then adopt(unitAmount("Protoss Dragoon", 10)).
 
 }
