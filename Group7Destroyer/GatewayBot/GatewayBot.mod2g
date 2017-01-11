@@ -4,11 +4,11 @@ use GatewayBot as actionspec.
 module GatewayBot {
 	
 	% If resources are sufficient, build Zealots until there are 12
-	if a-goal(unitAmount("Protoss Zealot", 12)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 100) 
+	if a-goal(unitAmount("Protoss Zealot", 12)), bel(queueSize(N), N < 2, capacity(CS, TS), (TS - CS) >= 4, minerals(M), M >= 100) 
 	then train("Protoss Zealot").
 	
-	% If resources are sufficient and there are enough Zealots, build Dragoon until there are 10
-	if a-goal(unitAmount("Protoss Dragoon", 10)), bel(queueSize(N), N < 2, supply(CS, TS), (TS - CS) >= 4, minerals(M), M >= 125, gas(G), G >=50) 
+	% If resources are sufficient and there are enough Zealots, build Dragoons
+	if a-goal(unitAmount("Protoss Dragoon", 10)), bel(queueSize(N), N < 2, capacity(CS, TS), (TS - CS) >= 4, minerals(M), M >= 125, gas(G), G >=50) 
 	then train("Protoss Dragoon").
 	
 }

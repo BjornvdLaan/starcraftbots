@@ -1,9 +1,13 @@
 use GatewayBot as knowledge.
 
 module GatewayBotInit {
-	% Init queueSize percept
+	% Initialize knowledge about itself
+	if percept(self(Id,Type,_,_,_)) then insert(self(Id, Type)).
+	
+	% Initialize knowledge about the queue
 	if percept(queueSize(Amount)) then insert(queueSize(Amount)).
 	
-	% Init resources percepts
-	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), supply(CS, TS)).
+	% Initialize resource knowledge
+	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), capacity(CS, TS)).
+	
 }

@@ -4,13 +4,13 @@ use "../GenericMods/GenericPercepts" as module.
 module GatewayBotEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
-	% The generic percepts most units use
+	% Get generic percepts
 	if true then GenericPercepts.
 	
-	% The handling of the supply percept
-	if bel(supply(OC, OT)), percept(resources(_, _, C, T)) then delete(supply(OC, OT)) + insert(supply(C, T)).
+	% Update knowledge about capacity
+	if percept(resources(_, _, C, T)), bel(capacity(OC, OT)) then delete(capacity(OC, OT)) + insert(capacity(C, T)).
 	
-	% The handling of the queueSize percept
+	% Update knowledge about the queue
 	if bel(queueSize(No)), percept(queueSize(N)) then delete(queueSize(No)) + insert(queueSize(N)).
 	
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
