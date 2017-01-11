@@ -55,6 +55,9 @@ module ProbeBotEvent {
 	% Build Stargate
 	if bel(builder, not(unitAmount("Protoss Stargate", _))) then adopt(unitAmount("Protoss Stargate", 1)).
 	
+	% Build shield battery, preferably in vicinity of defending units
+	if bel(builder, not(unitAmount("Protoss Shield Battery", _))) then adopt(unitAmount("Protoss Shield Battery", 1)).
+	
 	%% Goals for role 'vespene'
 	% If an Assimilator is built, start mining vespene
 	if bel(vespene, unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0, self(Id, _)) then adopt(workerActivity(Id, gatheringGas)).
