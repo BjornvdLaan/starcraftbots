@@ -43,10 +43,10 @@ module ProbeBotEvent {
 	% Build second Gateway
 	if bel(builder, unitAmount("Protoss Gateway", 1), unitAmount("Protoss Pylon",_)) then adopt(unitAmount("Protoss Gateway", 2)).
 	
-	% If there is not enough capacity, build more Pylons
+	% If there is not enough capacity, build more Pylons after the second Gateway is build
 	if bel(builder, unitAmount("Protoss Pylon", PylAmount), PylAmount_Des is PylAmount+1, capacity(CS, TS), TS - CS < 8, unitAmount("Protoss Gateway", GateAmount), GateAmount > 1) then adopt(unitAmount("Protoss Pylon", PylAmount_Des)).
 	
-	% Build Cybernetics Institute
+	% build Cybernetics Institute when there are two Gateways, so that Dragoons can be trained
 	if bel(builder, not(unitAmount("Protos Cybernetics Core",1)), unitAmount("Protoss Pylon",_), unitAmount("Protoss Gateway", 1)) then adopt(unitAmount("Protoss Cybernetics Core", 1)).
 	
 	% Build Assimilator
