@@ -33,33 +33,37 @@ module ProbeBotEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
-	% If there is no Pylon yet, create one
+	%% Goals for role 'builder', sorted by priority
+	% Build Pylon
 	if bel(builder, not(unitAmount("Protoss Pylon", PylAmount)), PylAmount = 1) then adopt(unitAmount("Protoss Pylon", 1)).
 	
-	% build one gateway
+	% Build one Gateway
 	if bel(builder, not(unitAmount("Protoss Gateway", _)), unitAmount("Protoss Pylon",_)) then adopt(unitAmount("Protoss Gateway", 1)).
-	% build second gateway
-	if bel(builder, unitAmount("Protoss Gateway", 1), unitAmount("Protoss Pylon",_)) then adopt(unitAmount("Protoss Gateway", 2)).
-	%if bel(builder, not(unitAmount("Protoss Gateway", GateAmount)), unitAmount("Protoss Pylon", _)) then adopt(unitAmount("Protoss Gateway", 2)).
 	
-	% If there is not enough capacity, build more pylons
+	% Build second Gateway
+	if bel(builder, unitAmount("Protoss Gateway", 1), unitAmount("Protoss Pylon",_)) then adopt(unitAmount("Protoss Gateway", 2)).
+	
+	% If there is not enough capacity, build more Pylons
 	if bel(builder, unitAmount("Protoss Pylon", PylAmount), PylAmount_Des is PylAmount+1, capacity(CS, TS), TS - CS < 8, unitAmount("Protoss Gateway", GateAmount), GateAmount > 1) then adopt(unitAmount("Protoss Pylon", PylAmount_Des)).
 	
-	% build cybernetics institute
+	% Build Cybernetics Institute
 	if bel(builder, not(unitAmount("Protos Cybernetics Core",1)), unitAmount("Protoss Pylon",_), unitAmount("Protoss Gateway", 1)) then adopt(unitAmount("Protoss Cybernetics Core", 1)).
 	
-	% build assimilator
+	% Build Assimilator
 	if bel(builder, not(unitAmount("Protoss Assimilator", _))) then adopt(unitAmount("Protoss Assimilator", 1)).
 	
-	% if role is vespene, collect vespene
+	%% Goals for role 'vespene'
+	% If an Assimilator is built, start mining vespene
 	if bel(vespene, unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0, self(Id, _)) then adopt(workerActivity(Id, gatheringGas)).
 	
+	%% Goals for probes without role 'vespene'
 	% If the worker is not busy, start gathering minerals
 	if not(bel(vespene)), bel(self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
 		
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	forall bel(mineralLoc(MinId,_,_,_)) do (nexusBot).send(mineralF(MinId)).
 	
+	% Processing role assignment by Nexus
 	if (_).sent(builder) then insert(builder).
 	if (_).sent(vespene) then insert(vespene).	
 	

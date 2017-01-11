@@ -1,22 +1,19 @@
 use ProbeBot as knowledge.
 
 module ProbeBotInit {
-	% zelfkennis en nexus laten weten dat hij bestaat
+	% Initialize know about itself
+	%NOTE: should this be moved to event?
 	if percept(self(Id, Type, MaxHealth, MaxShield, MaxEnergy)) then insert(self(Id, Type)) + (nexusBot).send(probe(Id)).
 	
-	% Init resource percepts
+	% Initialize resource knowledge
 	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), capacity(CS, TS)).
 		
-	% Perceive base locations
-	%forall percept(base(X,Y,Start,RegID)) do insert(base(X,Y,Start,RegID)).
-		
-	% Init ConstructionSites
+	% Initialize knowledge about available construction sites
 	forall percept(constructionSite(X,Y,B)) do insert(constructLoc(X,Y,B)).
 	
-	%Init Vespene Gas location
-	forall percept(vespeneGeyser(Id,R,Rg,Xv,Yv)) do insert(vespeneLoc(Id,R,Rg,Xv,Yv)).
-		
+	%Initialize knowledge about vespene geyser locations
+	forall percept(vespeneGeyser(Id,R,Rg,Xv,Yv)) do insert(vespeneLoc(Id,R,Rg,Xv,Yv)).	
 	
-	% Init conditions
+	% Initialize state
 	if percept(status(_, _, _, Cond, _, _)) then insert(state(Cond)).
 }
