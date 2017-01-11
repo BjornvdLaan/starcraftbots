@@ -52,6 +52,9 @@ module ProbeBotEvent {
 	% Build Assimilator
 	if bel(builder, not(unitAmount("Protoss Assimilator", _))) then adopt(unitAmount("Protoss Assimilator", 1)).
 	
+	% Build Stargate
+	if bel(builder, not(unitAmount("Protoss Stargate", _))) then adopt(unitAmount("Protoss Stargate", 1)).
+	
 	%% Goals for role 'vespene'
 	% If an Assimilator is built, start mining vespene
 	if bel(vespene, unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0, self(Id, _)) then adopt(workerActivity(Id, gatheringGas)).
