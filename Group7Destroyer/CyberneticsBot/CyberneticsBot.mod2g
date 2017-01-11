@@ -6,4 +6,10 @@ module GatewayBot {
 	% if resources are sufficient, upgrade Singularity Charge
 	if a-goal(hasResearched("Singularity Charge")) then upgrade("Singularity Charge").
 	
+	% if resources are sufficient, upgrade Air Armor
+	if a-goal(hasResearched("Protoss Air Armor")) then upgrade("Protoss Air Armor").
+	
+	% if resources are sufficient, upgrade Air Weapons
+	if a-goal(hasResearched("Protos Air Weapons")) then upgrade("Protoss Air Weapons").
+	
 }
