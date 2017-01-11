@@ -13,8 +13,6 @@ gas/1,
 unitAmount/2,
 self/2.
 
-hasRole :- vespene ; builder.
-
 % The cost of declared buildings (for every new building add the cost here)
 cost("Protoss Pylon", 100, 0).
 cost("Protoss Nexus", 400, 0).

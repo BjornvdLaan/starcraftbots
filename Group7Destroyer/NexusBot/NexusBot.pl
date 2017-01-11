@@ -15,4 +15,4 @@ done/2,
 nrMineralFields/1,
 ready/1.
 
-allReady :- aggregate_all(count, ready(_), Count), Count > 5.
+%allReady :- aggregate_all(count, ready(_), Count), Count > 5.
