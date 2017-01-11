@@ -1,8 +1,7 @@
 use ProbeBot as knowledge.
 
 module ProbeBotInit {
-	% Initialize know about itself
-	%NOTE: should this be moved to event?
+	% Initialize knowledge about itself
 	if percept(self(Id, Type, MaxHealth, MaxShield, MaxEnergy)) then insert(self(Id, Type)) + (nexusBot).send(probe(Id)).
 	
 	% Initialize resource knowledge

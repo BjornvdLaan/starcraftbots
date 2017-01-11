@@ -3,10 +3,12 @@ use NexusBot as actionspec.
 
 module NexusBot {
 	
-	%%%%%%%%%%%%%%% --------------------------------------- Probe Roles --------------------------------------- %%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%% --------------------------------------- Probe Role Assignments --------------------------------------- %%%%%%%%%%%%%%%
 	
+	%If there is no builder yet, assign builder role
 	if not(bel(probeHasRole(_,_,"builder"), probeHasRole(Name, Id, _))), bel(probe(Name, Id)) then insert(probeHasRole(Name, Id, "builder")) + (Name).send(builder).
 	
+	%If the Assimilator is built, assign vespene role to 3 probes
 	if bel(unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0) then {
 		if not(bel(probeHasRole(_,_,"vespene1"), probeHasRole(Name, Id, _))), bel(probe(Name, Id)) then insert(probeHasRole(Name, Id, "vespene1")) + (Name).send(vespene).
 		if not(bel(probeHasRole(_,_,"vespene2"), probeHasRole(Name, Id, _))), bel(probe(Name, Id), probeHasRole(VName,VId,"vespene1"), (Id \= VId)) then insert(probeHasRole(Name, Id, "vespene2")) + (Name).send(vespene).
@@ -15,10 +17,9 @@ module NexusBot {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Probe building --------------------------------------- %%%%%%%%%%%%%%%
 	
-	% If there is no probe in queue and have sufficient minerals
+	% If there is no probe in queue and have sufficient minerals, build more probes
 	if bel(minerals(X), X>=50, queueSize(T), T < 2) then {
 		if a-goal(unitAmount("Protoss Probe", N)), bel(unitAmount("Protoss Probe", M), M < N) then train("Protoss Probe").
-		
 		%if a-goal(unitAmount("Protoss Probe", N * 1.5 + 3)), bel(unitAmount("Protoss Probe", M), M < N) then train("Protoss Probe"). 
 	} 
 	

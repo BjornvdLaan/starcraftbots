@@ -4,35 +4,32 @@ use "../GenericMods/GenericPercepts" as module.
 module NexusBotEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
-	% The generic percepts most units use
+	% Get generic percepts
 	if true then GenericPercepts.
 	
-	% The handling of mineralfields	
-	forall percept(mineralField(Id,_,_,_,_)), not(bel(mineralField(Id))) do insert(mineralField(Id)).
-	forall bel(mineralField(Id)), not(percept(mineralField(Id,_,_,_,_))) do delete(mineralField(Id)).
-	
-	forall percept(mineralField(Id,_,_,_,_)), not(bel(mineralField(Id))), bel(nrMineralFields(X)) do delete(nrMineralFields(X)) + insert(nrMineralFields(X+1)).
-	forall bel(mineralField(Id), nrMineralFields(X)), not(percept(mineralField(Id,_,_,_,_))) do delete(nrMineralFields(X)) + insert(nrMineralFields(X-1)).
-	
-	% The handling of the capacity percept
+	% Update knowledge about capacity
 	if percept(resources(_, _, C, T)), bel(capacity(OC, OT)) then delete(capacity(OC, OT)) + insert(capacity(C, T)).
 	
-	% The handling of the queueSize percept
+	% Update knowledge about the queue
 	if bel(queueSize(No)), percept(queueSize(N)) then delete(queueSize(No)) + insert(queueSize(N)).
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
-	% If no goal to make an amount of units, and have less then 7 probes, adopt a goal to make 8 probes
-	% if not(goal(unitAmount(_,_))), bel(unitAmount("Protoss Probe", X), X < 7) then adopt(unitAmount("Protoss Probe", 8)).
+	%% If there is an Assimilator
+	% If there is no goal about making units and there are less than (1.5 * amount of mineral fields + 3) probes, then build more probes
+	% (3 extra probes are for vespene mining)
+	if not(goal(unitAmount(_,_))), bel(unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0, N = 8, unitAmount("Protoss Probe",Y), (Y < (1.5 * N + 3))) then adopt(unitAmount("Protoss Probe", N * 1.5 + 3)).
 	
-	% 14-12 if we do not have a goal to make an amount of units and we believe that there are less probes than 1.5 times the amount of mineral fields, then we adopt the goal of building so many probes. 
+	%% If there is no Assimilator
+	% If there is no goal about making units and there are less than (1.5 * amount of mineral fields) probes, then build more probes
 	if not(goal(unitAmount(_,_))), bel(not(unitAmount("Protoss Assimilator", AssiAmount)), N = 8, unitAmount("Protoss Probe",Y), (Y < (1.5 * N))) then adopt(unitAmount("Protoss Probe", N * 1.5)).
 	
-	if not(goal(unitAmount(_,_))), bel(unitAmount("Protoss Assimilator", AssiAmount), AssiAmount > 0, N = 8, unitAmount("Protoss Probe",Y), (Y < (1.5 * N + 3))) then adopt(unitAmount("Protoss Probe", N * 1.5 + 3)).
-
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
-	if (_).sent(mineralF(Id)), not(bel(mineralF(Id))) then insert(mineralF(Id)).
 	
+	% If someone sends a new mineral field, add it to knowledge base
+	if (_).sent(mineralField(Id)), not(bel(mineralField(Id))) then insert(mineralField(Id)).
+	
+	% If a new probe is created, insert it in knowledge base
 	forall (Name).sent(probe(Id)) do insert(probe(Name, Id)).
 		
 }

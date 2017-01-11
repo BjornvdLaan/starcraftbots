@@ -5,7 +5,7 @@ use "../GenericMods/GenericPercepts" as module.
 module ProbeBotEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
-	% get GenericPercepts
+	% Get generic percepts
 	if true then GenericPercepts.
 	
 	% Current state of the probe
