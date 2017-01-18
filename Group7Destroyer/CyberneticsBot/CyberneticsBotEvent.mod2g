@@ -1,0 +1,29 @@
+use CyberneticsBot as knowledge.
+use "../GenericMods/GenericPercepts" as module.
+
+module GatewayBotEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% Get generic percepts
+	if true then GenericPercepts.
+	
+	% Update knowledge about capacity
+	if percept(resources(_, _, C, T)), bel(capacity(OC, OT)) then delete(capacity(OC, OT)) + insert(capacity(C, T)).
+	
+	% Update knowledge about the queue
+	if bel(queueSize(No)), percept(queueSize(N)) then delete(queueSize(No)) + insert(queueSize(N)).
+	
+	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
+	
+	% if the zealots have been build, start upgrading range of dragoons
+	  %if not(goal(upgrade("Singularity Charge"))), bel(unitAmount("Protoss Zealot", _), unitAmount("Protoss Cybernetics Core", CybAmount), CybAmount >= 1) 
+	  %then adopt(unitAmount("Protoss Dragoon", 10)).
+	if bel(unitAmount("Protoss Zealot", ZelAmount), ZelAmount >= 12) then adopt(hasResearched("Singularity Charge")).
+	
+	% if the singularity charge has been researched, upgrade air aromor
+	if bel(hasResearched("Singularity Charge")) then adopt(hasResearched("Protoss Air Armor")).
+	
+	% if both singularity charge and air armor have been researched, upgrade air weapons.
+	if bel(hasResearched("Singularity Charge"), hasResearched("Protoss Air Armor")) then adopt (hasResearched("Protoss Air Weapons")).
+
+}

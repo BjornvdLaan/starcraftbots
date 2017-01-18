@@ -1,0 +1,7 @@
+use ZealotBot as knowledge.
+use ZealotBot as actionspec.
+
+module ZealotBot {
+	% If told to attack, attack
+	if a-goal(attack(X,Y)) then attack(X,Y).
+}

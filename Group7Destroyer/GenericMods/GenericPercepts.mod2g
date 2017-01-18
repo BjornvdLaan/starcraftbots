@@ -7,11 +7,22 @@ module GenericPercepts {
 	if bel(minerals(OM)), percept(resources(M, _, _, _)) then delete(minerals(OM)) + insert(minerals(M)).
 	if bel(gas(OG)), percept(resources(_, G, _, _)) then delete(gas(OG)) + insert(gas(G)).
 	
+	% Update knowledge about bases in the map
+	forall percept(base(X, Y, Start, RegId)), not(bel(base(X, Y, Start, RegId))) do insert(base(X, Y, Start, RegId)).
+	
 	% Update friendly units knowledge based on unit percept
 	forall percept(unit(true, Type,Id,Health,Shields,_)), bel(self(MyId,_), not(friendly(Type,Id,Health,Shields)), MyId \= Id) 
 	do insert(friendly(Type, Id, Health, Shields)).
 	forall bel(friendly(Type, Id, Health, Shields)) , not(percept(unit(true, Type,Id,Health,Shields,_)))
 	do delete(friendly(Type,Id,Health, Shields)).
+	
+	if percept(status(Health, Shield, Energy, Cond, X, Y)) then {
+		if bel(status(OHealth, OShield, OEnergy, OCond, OX, OY)) 
+		then delete(status(OHealth, OShield, OEnergy, OCond, OX, OY)) + insert(status(Health, Shield, Energy, Cond, X, Y)).
+		
+		if not(bel(status(OHealth, OShield, OEnergy, OCond, OX, OY))) 
+		then insert(status(Health, Shield, Energy, Cond, X, Y)).
+	}
 	
 	% Update unit amount knowledge based on unitAmount percept
 	forall bel(unitAmount(Type,Count)),not(percept(unitAmount(Type,Count))) do delete(unitAmount(Type,Count)).

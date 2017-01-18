@@ -1,0 +1,13 @@
+use CyberneticsBot as knowledge.
+
+module GatewayBotInit {
+	% Initialize knowledge about itself
+	if percept(self(Id,Type,_,_,_)) then insert(self(Id, Type)).
+	
+	% Initialize knowledge about the queue
+	if percept(queueSize(Amount)) then insert(queueSize(Amount)).
+	
+	% Initialize resource knowledge
+	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), capacity(CS, TS)).
+	
+}

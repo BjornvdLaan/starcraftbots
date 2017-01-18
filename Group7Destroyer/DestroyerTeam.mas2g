@@ -24,8 +24,15 @@ define gatewayBot as agent{
 	use GatewayBot.GatewayBotEvent as event module.
 }
 
+define cyberneticsBot as agent{
+	use CyberneticsBot.CyberneticsBot as main module.
+	use CyberneticsBot.CyberneticsBotInit as init module.
+	use CyberneticsBot.CyberneticsBotEvent as event module.
+}
+
 launchpolicy{
 	when type = protossProbe launch probeBot.
 	when type = protossNexus launch nexusBot.
 	when type = protossGateway launch gatewayBot.
+	when type = protossCyberneticsCore launch cyberneticsBot.
 }

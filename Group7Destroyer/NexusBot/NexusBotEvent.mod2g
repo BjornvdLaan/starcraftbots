@@ -1,4 +1,5 @@
 use NexusBot as knowledge.
+use "../GenericMods/GenericPredicates" as knowledge.
 use "../GenericMods/GenericPercepts" as module.
 
 module NexusBotEvent {
@@ -29,8 +30,13 @@ module NexusBotEvent {
 	% If someone sends a new mineral field, add it to knowledge base
 	if (_).sent(mineralField(Id)), not(bel(mineralField(Id))) then insert(mineralField(Id)).
 	
+	forall (Name).sent?(ownBase), bel(status(_, _, _, _, X, Y)) do (Name).send:(ownBase(X, Y)).
+	
 	% If a new probe is created, insert it in knowledge base
 	forall (Name).sent(probe(Id)) do insert(probe(Name, Id)).
+	
+	% If 12 Zealots are built, give the attack order
+	if bel(unitAmount("Protoss Zealot", 12)) then (zealotBot).send(attackOrder).
 		
 }
 
