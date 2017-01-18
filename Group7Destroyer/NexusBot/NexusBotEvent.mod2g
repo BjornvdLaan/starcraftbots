@@ -14,6 +14,10 @@ module NexusBotEvent {
 	% Update knowledge about the queue
 	if bel(queueSize(No)), percept(queueSize(N)) then delete(queueSize(No)) + insert(queueSize(N)).
 	
+	% Update status
+	if percept(status(Health, Shield, Energy, Cond, X, Y)), bel(status(OHealth, OShield, OEnergy, OCond, OX, OY))
+	then delete(status(OHealth, OShield, OEnergy, OCond, OX, OY)) + insert(status(Health, Shield, Energy, Cond, X, Y)).
+	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
 	%% If there is an Assimilator
@@ -27,16 +31,17 @@ module NexusBotEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
+	% If 12 Zealots are built, give the attack order
+	if bel(unitAmount("Protoss Zealot", N), N > 11) then allother.send(attackOrder).
+	
 	% If someone sends a new mineral field, add it to knowledge base
 	if (_).sent(mineralField(Id)), not(bel(mineralField(Id))) then insert(mineralField(Id)).
 	
-	forall (Name).sent?(ownBase), bel(status(_, _, _, _, X, Y)) do (Name).send:(ownBase(X, Y)).
+	% If someone asks the nexus location, send it
+	forall (Name).sent(ownBase), bel(status(_, _, _, _, X, Y)) do (Name).send(ownBase(X, Y)).
 	
 	% If a new probe is created, insert it in knowledge base
 	forall (Name).sent(probe(Id)) do insert(probe(Name, Id)).
-	
-	% If 12 Zealots are built, give the attack order
-	if bel(unitAmount("Protoss Zealot", 12)) then (zealotBot).send(attackOrder).
 		
 }
 
