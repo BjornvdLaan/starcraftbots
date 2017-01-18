@@ -5,6 +5,7 @@ unitAmount/2,
 minerals/1,
 base/4,
 gas/1,
+attackOrder/0,
 status/6.
 
 % Distance using Pythagoras

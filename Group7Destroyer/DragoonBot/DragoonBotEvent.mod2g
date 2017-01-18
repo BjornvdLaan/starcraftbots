@@ -1,8 +1,8 @@
-use ZealotBot as knowledge.
+use DragoonBot as knowledge.
 use "../GenericMods/GenericPredicates" as knowledge.
 use "../GenericMods/GenericPercepts" as module.
 
-module ZealotBotEvent {
+module DragoonBotEvent {
 	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
 	
 	% Get generic percepts
@@ -17,7 +17,7 @@ module ZealotBotEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
-	% If the zealot does not know where its own base is, ask the nexus
+	% If the Dragoon does not know where its own base is, ask the nexus
 	if not(bel(ownBase(_, _))) then allother.send(ownBase).
 	
 	% If Nexus sends its locations, store it in knowledge base

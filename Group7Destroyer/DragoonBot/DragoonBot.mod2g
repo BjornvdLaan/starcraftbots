@@ -1,0 +1,7 @@
+use DragoonBot as knowledge.
+use DragoonBot as actionspec.
+
+module DragoonBot {
+	% If told to attack, attack
+	if a-goal(attack(X,Y)) then attack(X,Y).
+}
