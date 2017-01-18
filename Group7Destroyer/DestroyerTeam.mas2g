@@ -36,10 +36,17 @@ define zealotBot as agent{
 	use ZealotBot.ZealotBotEvent as event module.
 }
 
+define dragoonBot as agent{
+	use DragoonBot.DragoonBot as main module.
+	use DragoonBot.DragoonBotInit as init module.
+	use DragoonBot.DragoonBotEvent as event module.
+}
+
 launchpolicy{
 	when type = protossProbe launch probeBot.
 	when type = protossNexus launch nexusBot.
 	when type = protossGateway launch gatewayBot.
 	when type = protossCyberneticsCore launch cyberneticsBot.
 	when type = protossZealot launch zealotBot.
+	when type = protossDragoon launch dragoonBot.
 }

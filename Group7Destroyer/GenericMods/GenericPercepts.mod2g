@@ -16,6 +16,9 @@ module GenericPercepts {
 	forall bel(friendly(Type, Id, Health, Shields)) , not(percept(unit(true, Type,Id,Health,Shields,_)))
 	do delete(friendly(Type,Id,Health, Shields)).
 		
+	% If Nexus issues attack order, store it in knowledge base
+	if (_).sent(attackOrder) then insert(attackOrder).
+	
 	% Update unit amount knowledge based on unitAmount percept
 	forall bel(unitAmount(Type,Count)),not(percept(unitAmount(Type,Count))) do delete(unitAmount(Type,Count)).
 	forall percept(unitAmount(Type,Count)), not(bel(unitAmount(Type,Count))) do insert(unitAmount(Type,Count)).

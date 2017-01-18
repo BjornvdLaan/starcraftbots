@@ -13,7 +13,7 @@ module ZealotBotEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
-	if not(a-goal(attack(_, _))), bel(attackOrder, enemyBase(X,Y)) then adopt(attack(X,Y)).
+	if not(a-goal(attack(X, Y))), bel(attackOrder, enemyBase(X,Y)) then adopt(attack(X,Y)).
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
