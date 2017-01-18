@@ -31,8 +31,9 @@ module NexusBotEvent {
 	
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
 	
-	% If 12 Zealots are built, give the attack order
-	if bel(unitAmount("Protoss Zealot", N), N > 11) then allother.send(attackOrder).
+	% If 12 Zealots or 5 Dragoons are built, give the attack order
+	if bel(unitAmount("Protoss Zealot", N), N > 11) then insert(attackOrder) + allother.send(attackOrder).
+	%if bel(unitAmount("Protoss Dragoon", N), N > 5) then insert(attackOrder) + (dragoonBot).send(attackOrder).
 	
 	% If someone sends a new mineral field, add it to knowledge base
 	if (_).sent(mineralField(Id)), not(bel(mineralField(Id))) then insert(mineralField(Id)).

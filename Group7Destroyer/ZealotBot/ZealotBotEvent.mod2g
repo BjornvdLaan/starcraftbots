@@ -1,4 +1,5 @@
 use ZealotBot as knowledge.
+use "../GenericMods/GenericPredicates" as knowledge.
 use "../GenericMods/GenericPercepts" as module.
 
 module ZealotBotEvent {
@@ -8,7 +9,7 @@ module ZealotBotEvent {
 	if true then GenericPercepts.
 	
 	% Derive location of enemy bases
-	forall bel(ownBase(X,Y), base(X1, Y1, true, _), X \= X1, Y \= Y1) do insert(enemyBase(X1, Y1)).
+	forall bel(ownBase(X,Y), base(X1, Y1, true, _), base(X2, Y2, true, _), distance(X,Y,X1,Y1,S1), distance(X,Y,X2,Y2,S2), S1 < S2) do insert(enemyBase(X2, Y2)).
 	
 	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
 	
