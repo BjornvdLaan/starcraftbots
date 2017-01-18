@@ -1,0 +1,25 @@
+use ZealotBot as knowledge.
+use "../GenericMods/GenericPercepts" as module.
+
+module ZealotBotEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% Get generic percepts
+	if true then GenericPercepts.
+	
+	% Derive location of enemy bases
+	forall bel(ownBase(X,Y), base(X1, Y1, true, _), X \= X1, Y \= Y1) do insert(enemyBase(X1, Y1)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if not(a-goal(attack(_, _))), bel(attackOrder, enemyBase(X,Y)) then adopt(attack(X,Y)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If the zealot does not know where its own base is, ask the nexus
+	if not(bel(ownBase(_, _))) then (nexusBot).send?(ownBase).
+	
+	% If Nexus sends its locations, store it in knowledge base
+	if (_).sent:(ownBase(X, Y)) then insert(ownBase(X, Y)).
+}
+
