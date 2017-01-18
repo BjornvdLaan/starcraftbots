@@ -52,8 +52,11 @@ module ProbeBotEvent {
 	% Build Assimilator
 	if bel(builder, not(unitAmount("Protoss Assimilator", _))) then adopt(unitAmount("Protoss Assimilator", 1)).
 	
-	% Build Stargate
+	% Build Stargate (Does not yet work)
 	if bel(builder, not(unitAmount("Protoss Stargate", _))) then adopt(unitAmount("Protoss Stargate", 1)).
+	
+	% Build shield battery, preferably in vicinity of defending units 
+	%if bel(builder, not(unitAmount("Protoss Shield Battery", _))) then adopt(unitAmount("Protoss Shield Battery", 1)).
 	
 	%% Goals for role 'vespene'
 	% If an Assimilator is built, start mining vespene
@@ -64,6 +67,7 @@ module ProbeBotEvent {
 	if not(bel(vespene)), bel(self(Id, _)) then adopt(workerActivity(Id, gatheringMinerals)).
 		
 	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	% Tell mineral locations to the nexus
 	forall bel(mineralLoc(MinId,_,_,_)) do (nexusBot).send(mineralF(MinId)).
 	
 	% Processing role assignment by Nexus
