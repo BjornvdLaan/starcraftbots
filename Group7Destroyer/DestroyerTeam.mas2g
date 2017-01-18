@@ -41,4 +41,5 @@ launchpolicy{
 	when type = protossNexus launch nexusBot.
 	when type = protossGateway launch gatewayBot.
 	when type = protossCyberneticsCore launch cyberneticsBot.
+	when type = protossZealot launch zealotBot.
 }
