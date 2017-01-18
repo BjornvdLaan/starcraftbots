@@ -15,15 +15,7 @@ module GenericPercepts {
 	do insert(friendly(Type, Id, Health, Shields)).
 	forall bel(friendly(Type, Id, Health, Shields)) , not(percept(unit(true, Type,Id,Health,Shields,_)))
 	do delete(friendly(Type,Id,Health, Shields)).
-	
-	if percept(status(Health, Shield, Energy, Cond, X, Y)) then {
-		if bel(status(OHealth, OShield, OEnergy, OCond, OX, OY)) 
-		then delete(status(OHealth, OShield, OEnergy, OCond, OX, OY)) + insert(status(Health, Shield, Energy, Cond, X, Y)).
 		
-		if not(bel(status(OHealth, OShield, OEnergy, OCond, OX, OY))) 
-		then insert(status(Health, Shield, Energy, Cond, X, Y)).
-	}
-	
 	% Update unit amount knowledge based on unitAmount percept
 	forall bel(unitAmount(Type,Count)),not(percept(unitAmount(Type,Count))) do delete(unitAmount(Type,Count)).
 	forall percept(unitAmount(Type,Count)), not(bel(unitAmount(Type,Count))) do insert(unitAmount(Type,Count)).

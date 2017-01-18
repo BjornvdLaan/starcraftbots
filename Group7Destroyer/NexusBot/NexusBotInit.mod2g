@@ -2,7 +2,6 @@ use NexusBot as knowledge.
 
 module NexusBotInit {
 	% Initialize unit amount
-	% NOTE: is this needed? Already in generic percepts
 	if percept(unitAmount(Type, Amount)) then insert(unitAmount(Type, Amount)).
 	
 	% Initialize knowledge about itself
@@ -13,5 +12,8 @@ module NexusBotInit {
 	
 	% Initialize resource knowledge
 	if percept(resources(M, G, CS, TS)) then insert(minerals(M), gas(G), capacity(CS, TS)).
+	
+	% Initialize status
+	if percept(status(Health, Shield, Energy, Cond, X, Y)) then insert(status(Health, Shield, Energy, Cond, X, Y)).
 	
 }
