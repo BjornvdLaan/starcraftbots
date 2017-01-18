@@ -16,8 +16,10 @@ module GatewayBotEvent {
 	%%%%%%%%%%%%%%% ----------------------------------------- GOALS ---------------------------------------- %%%%%%%%%%%%%%%
 	
 	% If there are no Zealots, build 12 Zealots
-	if not(goal(unitAmount("Protoss Zealot", 12))), bel((unitAmount("Protoss Zealot", X), X < 12);
+	if not(goal(unitAmount("Protoss Zealot", 12))), not(bel(zealotsDone)), bel((unitAmount("Protoss Zealot", X), X < 12);
 	not(unitAmount("Protoss Zealot", _))) then adopt(unitAmount("Protoss Zealot", 12)).
+	
+	if bel(unitAmount("Protoss Zealot", 12)) then insert(zealotsDone).
 
 	% If the Zealots have been built and there is Cybernetics Core, build Dragoons
 	if not(goal(unitAmount("Protoss Dragoon", 10))), bel(unitAmount("Protoss Zealot", _), unitAmount("Protoss Cybernetics Core", CybAmount), CybAmount >= 1) 
