@@ -16,9 +16,9 @@ module ProbeBot {
 	
 	if a-goal(unitAmount("Protoss Assimilator", 1)), bel(vespeneLoc(Id,R,Rg,Xv,Yv), minerals(M), M >= 100, unitAmount("Protoss Gateway", GateAmount), GateAmount > 1) then build("Protoss Assimilator", Xv, Yv).
 	
-	if a-goal(unitAmount("Protoss Stargate", 1)), bel(constructLoc(X,Y,true), minerals(M), M > 150, gas(G), G >= 150) then build("Protoss Stargate", X, Y).
+	%if a-goal(unitAmount("Protoss Stargate", 1)), bel(constructLoc(X,Y,true), minerals(M), M > 150, gas(G), G >= 150) then build("Protoss Stargate", X, Y).
 	
-	if a-goal(unitAmount("Protoss Shield Battery", 1)), bel(constructLoc(X,Y,true), minerals(M), M > 100) then build("Protoss Shield Battery", X, Y).
+	%if a-goal(unitAmount("Protoss Shield Battery", 1)), bel(constructLoc(X,Y,true), minerals(M), M > 100) then build("Protoss Shield Battery", X, Y).
 	
 	if a-goal(workerActivity(Id, gatheringGas)), bel(friendly("Protoss Assimilator", AssiId, _, _)) then gather(AssiId).
 	
