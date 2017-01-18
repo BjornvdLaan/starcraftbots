@@ -1,0 +1,6 @@
+use DragoonBot as knowledge.
+
+module DragoonBotInit {
+	% Initialize knowledge about itself
+	if percept(self(Id, Type, MaxHealth, MaxShield, MaxEnergy)) then insert(self(Id, Type)) + (nexusBot).send(probe(Id)).
+}

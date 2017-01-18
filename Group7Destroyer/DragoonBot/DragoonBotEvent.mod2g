@@ -1,0 +1,29 @@
+use DragoonBot as knowledge.
+use "../GenericMods/GenericPredicates" as knowledge.
+use "../GenericMods/GenericPercepts" as module.
+
+module DragoonBotEvent {
+	%%%%%%%%%%%%%%% --------------------------------------- Percepts --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% Get generic percepts
+	if true then GenericPercepts.
+	
+	% Derive location of enemy bases
+	forall bel(ownBase(X,Y), base(X1, Y1, true, _), base(X2, Y2, true, _), distance(X,Y,X1,Y1,S1), distance(X,Y,X2,Y2,S2), S1 < S2) do insert(enemyBase(X2, Y2)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- GOALS --------------------------------------- %%%%%%%%%%%%%%%
+	
+	if not(a-goal(attack(_, _))), bel(attackOrder, enemyBase(X,Y)) then adopt(attack(X,Y)).
+	
+	%%%%%%%%%%%%%%% --------------------------------------- Messaging --------------------------------------- %%%%%%%%%%%%%%%
+	
+	% If the Dragoon does not know where its own base is, ask the nexus
+	if not(bel(ownBase(_, _))) then allother.send(ownBase).
+	
+	% If Nexus sends its locations, store it in knowledge base
+	if (_).sent(ownBase(X, Y)) then insert(ownBase(X, Y)).
+	
+	% If Nexus sends the attack order, store it in knowledge base
+	if (_).sent(attackOrder) then insert(attackOrder).
+}
+
